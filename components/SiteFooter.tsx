@@ -18,7 +18,7 @@ export const SiteFooter = () => {
 				))}
 				<span>
 					With the exception of the Commonwealth Coat of Arms and where
-					otherwise noted, this work is licensed under the CC BY 4.0 license.
+					otherwise noted, this work is licensed under the MIT License.
 				</span>
 			</Flex>
 		</AgDsFooter>
