@@ -1,20 +1,22 @@
-import type { NextPage } from 'next';
-import React from 'react';
+import type { NextPage } from "next";
+import React from "react";
 
-import { Body } from '@ag.ds-next/body';
-import { Content } from '@ag.ds-next/content';
+import { Body } from "@ag.ds-next/body";
+import { Content } from "@ag.ds-next/content";
+import { Button } from "@ag.ds-next/button";
 
-import { Layout } from '../components/Layout';
-import { Crest } from '../components/Crest';
+import { Layout } from "../components/Layout";
+import { Crest } from "../components/Crest";
 
 const Home: NextPage = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const crestRef = React.useRef<any>();
 	const [inputValues, setInputValues] = React.useState({
-		title: 'Australian Government',
-		agency: '',
-		division: '',
+		title: "Australian Government",
+		agency: "",
+		division: "",
 	});
+	const [dark, setDark] = React.useState(true);
 	const [SVGHeight, setSVGHeight] = React.useState(350);
 
 	const saveSvg = () => {
@@ -43,14 +45,14 @@ const Home: NextPage = () => {
 		  </rdf:RDF>
 		</metadata>`;
 
-		svg.insertAdjacentHTML('afterbegin', metadata);
+		svg.insertAdjacentHTML("afterbegin", metadata);
 
 		const svgBlob = new Blob([svg.outerHTML], {
-			type: 'image/svg+xml;charset=utf-8',
+			type: "image/svg+xml;charset=utf-8",
 		});
 
 		const svgUrl = URL.createObjectURL(svgBlob);
-		const downloadLink = document.createElement('a');
+		const downloadLink = document.createElement("a");
 		downloadLink.href = svgUrl;
 		downloadLink.download = `${inputValues.title}-${inputValues.agency}-${inputValues.division}-AusGov_Crest.svg`;
 		document.body.appendChild(downloadLink);
@@ -62,209 +64,212 @@ const Home: NextPage = () => {
 
 	return (
 		<Layout>
-			<Body>
+			<Body
+				css={{
+					wordBreak: "break-word",
+				}}
+			>
 				<Content spacing="large">
 					<p>
-						This tool generates Australian Government Branding vectors
-						consistent with the guidelines published by the{' '}
+						This unofficial tool generates common Australian Government branding
+						vectors consistent with the guidelines published by the{" "}
 						<a href="https://www.dta.gov.au/help-and-advice/guides-and-tools/requirements-australian-government-websites/branding">
 							Digital Transformation Agency
-						</a>{' '}
-						and the{' '}
+						</a>{" "}
+						and the{" "}
 						<a href="https://www.pmc.gov.au/resource-centre/government/australian-government-branding-guidelines-use-australian-government-logo-australian-government-departments-and-agencies">
 							Department of the Prime Minister and Cabinet
 						</a>
 						.
 					</p>
 				</Content>
-				<Content spacing="large" background="shade">
+				<Content spacing="large" background="shadeAlt">
 					<div className="flex flex-wrap -mx-3 overflow-hidden items-center">
 						<div className="my-3 px-3 w-full overflow-hidden xl:w-1/4">
 							<div className="w-full max-w-md mr-auto ml-auto">
-
-							<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium">
-									<button
+								<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium">
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: '',
-												agency: '',
-												division: '',
+												title: "",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Coat of Arms only
-									</button>
+									</Button>
 								</div>
 								<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium mt-1">
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Government',
-												agency: 'Department of Social Services',
-												division: '',
+												title: "Australian Government",
+												agency: "Department of Social Services",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Single Agency
-									</button>
-									<button
+									</Button>
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Government',
+												title: "Australian Government",
 												agency:
 													"Department of Health; Department of Foreign Affairs and Trade; Attorney-General's Department",
-												division: '',
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Multiple Agencies
-									</button>
-									<button
+									</Button>
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'An Australian Government Initiative',
-												agency: '',
-												division: '',
+												title: "An Australian Government Initiative",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										An Australian Government Initiative
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Government',
-												agency: 'Department of Industry and Science',
-												division: 'Office of the Chief Economist',
+												title: "Australian Government",
+												agency: "Department of Industry and Science",
+												division: "Office of the Chief Economist",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Single Agency with Hierarchy
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Government',
-												agency: 'Australian Quarantine and Inspection Service',
-												division: '',
+												title: "Australian Government",
+												agency: "Australian Quarantine and Inspection Service",
+												division: "",
 											})
 										}
-										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										className="block px-4 py-2 border-b border-gray-200 w-full rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Single Agency with Distinct Branding
-									</button>
+									</Button>
 								</div>
 								<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium mt-1">
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian High Commission',
-												agency: 'United Kingdom',
-												division: '',
+												title: "Australian High Commission",
+												agency: "United Kingdom",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Australian High Commission
-									</button>
-									<button
+									</Button>
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Embassy',
-												agency: 'Thailand',
-												division: '',
+												title: "Australian Embassy",
+												agency: "Thailand",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Australian Embassy
-									</button>
-									<button
+									</Button>
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'Australian Consulate-General',
-												agency: 'Ho Chi Minh City, Vietnam',
-												division: '',
+												title: "Australian Consulate-General",
+												agency: "Ho Chi Minh City, Vietnam",
+												division: "",
 											})
 										}
-										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										className="block px-4 py-2 border-b border-gray-200 w-full rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Australian Consulate
-									</button>
+									</Button>
 								</div>
 								<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium mt-1">
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'PRIME MINISTER',
-												agency: '',
-												division: '',
+												title: "PRIME MINISTER",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Prime Minister
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'OFFICE OF THE PRIME MINISTER',
-												agency: '',
-												division: '',
+												title: "OFFICE OF THE PRIME MINISTER",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Office of the PM
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'OFFICE OF THE PRIME MINISTER;CHIEF OF STAFF',
-												agency: '',
-												division: '',
+												title: "OFFICE OF THE PRIME MINISTER;CHIEF OF STAFF",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Multiple Ministers or Offices
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
-												title: 'SENATOR GEORGE PEARCE',
-												agency: '',
-												division: '',
+												title: "SENATOR GEORGE PEARCE",
+												agency: "",
+												division: "",
 											})
 										}
 										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Senator
-									</button>
+									</Button>
 
-									<button
+									<Button
 										onClick={() =>
 											setInputValues({
 												title:
-													'THE HONOURABLE KEVIN RUDD AC;26th Prime Minister of Australia',
-												agency: '',
-												division: '',
+													"THE HONOURABLE KEVIN RUDD AC;26th Prime Minister of Australia",
+												agency: "",
+												division: "",
 											})
 										}
-										className="block px-4 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										className="block px-4 py-2 border-b border-gray-200 w-full rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
 									>
 										Past Ministers
-									</button>
+									</Button>
 								</div>
 							</div>
 						</div>
@@ -282,7 +287,7 @@ const Home: NextPage = () => {
 										<textarea
 											className="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300"
 											id="title"
-											value={inputValues['title']}
+											value={inputValues["title"]}
 											onChange={(e) =>
 												setInputValues({
 													...inputValues,
@@ -301,7 +306,7 @@ const Home: NextPage = () => {
 										<textarea
 											className="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300"
 											id="agency"
-											value={inputValues['agency']}
+											value={inputValues["agency"]}
 											disabled={!inputValues.title}
 											onChange={(e) =>
 												setInputValues({
@@ -321,7 +326,7 @@ const Home: NextPage = () => {
 										<textarea
 											className="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300"
 											id="division"
-											value={inputValues['division']}
+											value={inputValues["division"]}
 											disabled={!inputValues.agency}
 											onChange={(e) =>
 												setInputValues({
@@ -346,6 +351,15 @@ const Home: NextPage = () => {
 											onChange={(e) => setSVGHeight(Number(e.target.value))}
 										/>
 									</div>
+
+									<div className="mb-6">
+										<Button
+											onClick={() => setDark(!dark)}
+											className="block px-4 py-2 border-b border-gray-200 w-full rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										>
+											Toggle {dark ? "light" : "dark"}
+										</Button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -358,10 +372,11 @@ const Home: NextPage = () => {
 								agency={inputValues.agency}
 								division={inputValues.division}
 								crestRef={crestRef}
+								dark={dark}
 							/>
 							<div className="mt-10 flex flex-wrap justify-center">
 								<div className="my-5">
-									<button
+									<Button
 										className="bg-gray-300 margin-top-10 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 										onClick={saveSvg}
 									>
@@ -373,7 +388,7 @@ const Home: NextPage = () => {
 											<path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
 										</svg>
 										<span>Download SVG</span>
-									</button>
+									</Button>
 								</div>
 							</div>
 						</div>

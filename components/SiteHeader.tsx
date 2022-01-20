@@ -8,7 +8,10 @@ import { MainNav } from '@ag.ds-next/main-nav';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const NAV_LINKS = [{ label: 'Home', href: '/' }];
+const NAV_LINKS = [
+	{ label: 'Home', href: '/' },
+	{ label: 'About', href: '/about' },
+];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const NavLink = ({ href, label }: { href: string; label: ReactNode }) => (
@@ -22,7 +25,12 @@ export const SiteHeader = () => {
 
 	return (
 		<Stack>
-			<Header variant="dark" logo={<Logo />} heading="Crest Generator" />
+			<Header
+				variant="dark"
+				logo={<Logo />}
+				heading="Crest Generator"
+				subline='Unofficial'
+			/>
 
 			<MainNav
 				variant="darkAlt"
