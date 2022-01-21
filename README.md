@@ -27,4 +27,4 @@ Naturally this tool is aimed at those in the public service who have permission 
 
 So if you're in the private sector, unless you want a collective noun of angry lawyers from the Attorney General's Department, please seek permission from the Department of the Prime Minister and Cabinet first.
 
-Please don't sue me 😊 
+Speaking of which, it'd nice if PM&C actually returned my email. Please don't sue me 😊 
