@@ -50,7 +50,7 @@ export const Crest = ({
 	svgWidth = "",
 	svgHeight = "350",
 	dark = true,
-	orientation = "portrait",
+	orientation = "stacked",
 	crestRef,
 }: {
 	title: string;
@@ -59,7 +59,7 @@ export const Crest = ({
 	svgWidth: string;
 	svgHeight: string;
 	dark?: boolean;
-	orientation?: "portrait" | "landscape";
+	orientation?: "stacked" | "inline";
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	crestRef: any;
 }) => {
@@ -72,49 +72,62 @@ export const Crest = ({
 
 	React.useEffect(() => {
 		setViewBoxWidth(
-			Math.max(
-				crestWidth,
-				...titleArray.map((titleTitle) =>
-					textLength(
-						titleTitle,
-						titleSpacing,
-						`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
-					)
-				),
-				...agencyArray.map((agencyTitle) =>
-					textLength(
-						agencyTitle,
-						agencySpacing,
-						`${agencyFontWeight} ${agencyFontSize}px ${fontFamily}`
-					)
-				),
-				...divisionArray.map((divisionTitle) =>
-					textLength(
-						divisionTitle,
-						divisionSpacing,
-						`${divisionFontWeight} ${divisionFontSize}px ${fontFamily}`
-					)
-				)
-			)
+			// Math.max(
+			// 	crestWidth,
+			// 	...titleArray.map((titleTitle) =>
+			// 		textLength(
+			// 			titleTitle,
+			// 			titleSpacing,
+			// 			`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+			// 		)
+			// 	),
+			// 	...agencyArray.map((agencyTitle) =>
+			// 		textLength(
+			// 			agencyTitle,
+			// 			agencySpacing,
+			// 			`${agencyFontWeight} ${agencyFontSize}px ${fontFamily}`
+			// 		)
+			// 	),
+			// 	...divisionArray.map((divisionTitle) =>
+			// 		textLength(
+			// 			divisionTitle,
+			// 			divisionSpacing,
+			// 			`${divisionFontWeight} ${divisionFontSize}px ${fontFamily}`
+			// 		)
+			// 	)
+			// )
+			crestWidth +
+				textLength(
+					titleArray[0],
+					titleSpacing,
+					`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+				) + paddingTopBottom
 		);
 
 		setMounted(true);
 	}, [titleArray, agencyArray, divisionArray]);
 
 	const viewBoxHeight =
-		crestHeight +
-		(title
-			? (paddingTopBottom / 2 + titleFontSize) * titleArray.length +
-			  ((paddingTopBottom / 2) * (titleArray.length - 1) + 3)
-			: 0) +
-		(agency
-			? (paddingTopBottom / 2 + agencyFontSize) * agencyArray.length +
-			  ((paddingTopBottom / 2) * (agencyArray.length - 1) + 3)
-			: 0) +
-		(division ? agencyFontSize * divisionArray.length + paddingTopBottom : 0);
+		orientation === "stacked"
+			? crestHeight +
+			  (title
+					? (paddingTopBottom / 2 + titleFontSize) * titleArray.length +
+					  ((paddingTopBottom / 2) * (titleArray.length - 1) + 3)
+					: 0) +
+			  (agency
+					? (paddingTopBottom / 2 + agencyFontSize) * agencyArray.length +
+					  ((paddingTopBottom / 2) * (agencyArray.length - 1) + 3)
+					: 0) +
+			  (division
+					? agencyFontSize * divisionArray.length + paddingTopBottom
+					: 0)
+			: crestHeight;
 
 	const calculateViewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
-	const transform = `translate(${viewBoxWidth / 2 - crestWidth / 2} 0)`;
+	const transform =
+		orientation === "stacked"
+			? `translate(${viewBoxWidth / 2 - crestWidth / 2} 0)`
+			: `translate(0 0)`;
 
 	return mounted ? (
 		<svg
@@ -135,10 +148,14 @@ export const Crest = ({
 							return (
 								<text
 									key={index}
-									x="50%"
-									y={crestHeight + titleFontSize * (index + 1)} // crest height + padding + height of text
+									x={orientation === "stacked" ? "50%" : crestWidth + paddingTopBottom}
+									y={
+										orientation === "stacked"
+											? crestHeight + titleFontSize * (index + 1)
+											: (crestHeight + titleFontSize) / 2
+									} // crest height + padding + height of text
 									style={{ letterSpacing: titleSpacing }}
-									textAnchor="middle"
+									textAnchor="right"
 									fontWeight={titleFontWeight}
 									fontFamily={fontFamily}
 									fontSize={titleFontSize + "px"}
