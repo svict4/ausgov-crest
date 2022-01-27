@@ -85,7 +85,7 @@ const Home: NextPage = () => {
 				</Content>
 				<Content spacing="large" background="shadeAlt">
 					<div className="flex flex-wrap -mx-3 overflow-hidden items-center">
-						<div className="my-3 px-3 w-full overflow-hidden xl:w-1/4">
+						<div className="my-3 px-3 w-full overflow-hidden md:w-1/2 lg:w-1/4 px-2 mb-4">
 							<div className="w-full max-w-md mr-auto ml-auto">
 								<div className="bg-white rounded-lg border border-gray-200 text-gray-900 text-sm font-medium">
 									<Button
@@ -274,7 +274,7 @@ const Home: NextPage = () => {
 							</div>
 						</div>
 
-						<div className="my-3 px-3 w-full overflow-hidden xl:w-1/4">
+						<div className="my-3 px-3 w-full overflow-hidden md:w-1/2 lg:w-1/4 px-2 mb-4">
 							<div className="w-full max-w-md mr-auto ml-auto">
 								<div className="bg-white shadow rounded-md px-8 py-8">
 									<div className="mb-4">
@@ -364,7 +364,7 @@ const Home: NextPage = () => {
 							</div>
 						</div>
 
-						<div className="my-3 px-3 w-full overflow-hidden xl:w-1/2">
+						<div className="my-3 px-3 w-full overflow-hidden lg:w-1/2 px-2">
 							<Crest
 								svgHeight={SVGHeight.toString()}
 								svgWidth="100%"
