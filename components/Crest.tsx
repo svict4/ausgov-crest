@@ -14,7 +14,7 @@ const agencyFontWeight = "bold";
 const divisionFontSize = 63;
 const divisionSpacing = -1.5;
 const divisionFontWeight = "normal";
-const paddingTopBottom = 25;
+const padding = 25;
 
 function textLength(text: string, spacing: number, font: string) {
 	const canvas = document.createElement("canvas") as HTMLCanvasElement;
@@ -105,10 +105,10 @@ export const Crest = ({
 						titleArray[0],
 						titleSpacing,
 						`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
-					) + paddingTopBottom
+					) +
+					padding
 			);
 		}
-
 
 		setMounted(true);
 	}, [titleArray, agencyArray, divisionArray, orientation]);
@@ -117,16 +117,14 @@ export const Crest = ({
 		orientation === "stacked"
 			? crestHeight +
 			  (title
-					? (paddingTopBottom / 2 + titleFontSize) * titleArray.length +
-					  ((paddingTopBottom / 2) * (titleArray.length - 1) + 3)
+					? (padding / 2 + titleFontSize) * titleArray.length +
+					  ((padding / 2) * (titleArray.length - 1) + 3)
 					: 0) +
 			  (agency
-					? (paddingTopBottom / 2 + agencyFontSize) * agencyArray.length +
-					  ((paddingTopBottom / 2) * (agencyArray.length - 1) + 3)
+					? (padding / 2 + agencyFontSize) * agencyArray.length +
+					  ((padding / 2) * (agencyArray.length - 1) + 3)
 					: 0) +
-			  (division
-					? agencyFontSize * divisionArray.length + paddingTopBottom
-					: 0)
+			  (division ? agencyFontSize * divisionArray.length + padding : 0)
 			: crestHeight;
 
 	const calculateViewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
@@ -154,11 +152,14 @@ export const Crest = ({
 							return (
 								<text
 									key={index}
-									x={orientation === "stacked" ? "50%" : crestWidth + paddingTopBottom}
+									x={orientation === "stacked" ? "50%" : crestWidth + padding}
 									y={
 										orientation === "stacked"
 											? crestHeight + titleFontSize * (index + 1)
-											: ((crestHeight + titleFontSize) / 2) + (titleFontSize * index + 1)
+											: agency
+											? (crestHeight + titleFontSize) / 2 - padding
+											: (crestHeight + titleFontSize) / 2 +
+											  (titleFontSize * index + 1)
 									} // crest height + padding + height of text
 									style={{ letterSpacing: titleSpacing }}
 									textAnchor={orientation === "stacked" ? "middle" : "right"}
@@ -175,29 +176,42 @@ export const Crest = ({
 							return (
 								<React.Fragment key={index}>
 									<line
-										x1={0}
+										x1={orientation === "stacked" ? 0 : crestWidth + padding}
 										y1={
-											crestHeight +
-											(agencyFontSize + paddingTopBottom) * (index + 1)
+											orientation === "stacked"
+												? crestHeight + (agencyFontSize + padding) * (index + 1)
+												: (crestHeight + titleFontSize) / 2 +
+												  (titleFontSize * index + padding) -
+												  titleFontSize / 2 +
+												  5
 										}
 										x2={viewBoxWidth}
 										y2={
-											crestHeight +
-											(agencyFontSize + paddingTopBottom) * (index + 1)
+											orientation === "stacked"
+												? crestHeight + (agencyFontSize + padding) * (index + 1)
+												: (crestHeight + titleFontSize) / 2 +
+												  (titleFontSize * index + padding) -
+												  titleFontSize / 2 +
+												  5
 										}
 										stroke={dark ? "black" : "white"}
 										strokeWidth="2"
 									/>
 									<text
 										key={index}
-										x="50%"
+										x={orientation === "stacked" ? "50%" : crestWidth + padding}
 										y={
-											crestHeight +
-											(agencyFontSize + paddingTopBottom) * (index + 1) +
-											agencyFontSize
+											orientation === "stacked"
+												? crestHeight +
+												  (agencyFontSize + padding) * (index + 1) +
+												  agencyFontSize
+												: agencyFontSize +
+												  (crestHeight + titleFontSize) / 2 +
+												  titleFontSize * index -
+												  10
 										} // crest height + padding + height of text
 										style={{ letterSpacing: agencySpacing }}
-										textAnchor="middle"
+										textAnchor={orientation === "stacked" ? "middle" : "right"}
 										fontWeight={agencyFontWeight}
 										fontFamily={fontFamily}
 										fontSize={agencyFontSize + "px"}
@@ -215,12 +229,11 @@ export const Crest = ({
 									x="50%"
 									y={
 										crestHeight +
-										(paddingTopBottom / 2 + titleFontSize) * titleArray.length +
-										(paddingTopBottom / 2) * (titleArray.length - 1) +
-										(paddingTopBottom / 2 + agencyFontSize) *
-											agencyArray.length +
-										(paddingTopBottom / 2) * (agencyArray.length - 1) +
-										paddingTopBottom / 2 +
+										(padding / 2 + titleFontSize) * titleArray.length +
+										(padding / 2) * (titleArray.length - 1) +
+										(padding / 2 + agencyFontSize) * agencyArray.length +
+										(padding / 2) * (agencyArray.length - 1) +
+										padding / 2 +
 										agencyFontSize * (index + 1)
 									}
 									style={{ letterSpacing: titleSpacing }}
