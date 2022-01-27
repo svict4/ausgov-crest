@@ -71,41 +71,47 @@ export const Crest = ({
 	const divisionArray = division.split(/;|\n/).map((x) => x.trim());
 
 	React.useEffect(() => {
-		setViewBoxWidth(
-			// Math.max(
-			// 	crestWidth,
-			// 	...titleArray.map((titleTitle) =>
-			// 		textLength(
-			// 			titleTitle,
-			// 			titleSpacing,
-			// 			`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
-			// 		)
-			// 	),
-			// 	...agencyArray.map((agencyTitle) =>
-			// 		textLength(
-			// 			agencyTitle,
-			// 			agencySpacing,
-			// 			`${agencyFontWeight} ${agencyFontSize}px ${fontFamily}`
-			// 		)
-			// 	),
-			// 	...divisionArray.map((divisionTitle) =>
-			// 		textLength(
-			// 			divisionTitle,
-			// 			divisionSpacing,
-			// 			`${divisionFontWeight} ${divisionFontSize}px ${fontFamily}`
-			// 		)
-			// 	)
-			// )
-			crestWidth +
-				textLength(
-					titleArray[0],
-					titleSpacing,
-					`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
-				) + paddingTopBottom
-		);
+		if (orientation === "stacked") {
+			setViewBoxWidth(
+				Math.max(
+					crestWidth,
+					...titleArray.map((titleTitle) =>
+						textLength(
+							titleTitle,
+							titleSpacing,
+							`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+						)
+					),
+					...agencyArray.map((agencyTitle) =>
+						textLength(
+							agencyTitle,
+							agencySpacing,
+							`${agencyFontWeight} ${agencyFontSize}px ${fontFamily}`
+						)
+					),
+					...divisionArray.map((divisionTitle) =>
+						textLength(
+							divisionTitle,
+							divisionSpacing,
+							`${divisionFontWeight} ${divisionFontSize}px ${fontFamily}`
+						)
+					)
+				)
+			);
+		} else {
+			setViewBoxWidth(
+				crestWidth +
+					textLength(
+						titleArray[0],
+						titleSpacing,
+						`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+					) + paddingTopBottom
+			);
+		}
+
 
 		setMounted(true);
-	}, [titleArray, agencyArray, divisionArray]);
+	}, [titleArray, agencyArray, divisionArray, orientation]);
 
 	const viewBoxHeight =
 		orientation === "stacked"
@@ -152,10 +158,10 @@ export const Crest = ({
 									y={
 										orientation === "stacked"
 											? crestHeight + titleFontSize * (index + 1)
-											: (crestHeight + titleFontSize) / 2
+											: ((crestHeight + titleFontSize) / 2) + (titleFontSize * index + 1)
 									} // crest height + padding + height of text
 									style={{ letterSpacing: titleSpacing }}
-									textAnchor="right"
+									textAnchor={orientation === "stacked" ? "middle" : "right"}
 									fontWeight={titleFontWeight}
 									fontFamily={fontFamily}
 									fontSize={titleFontSize + "px"}
