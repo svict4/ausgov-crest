@@ -56,7 +56,7 @@ export const Crest = ({
 	title: string;
 	agency: string;
 	division: string;
-	svgWidth: string;
+	svgWidth?: string;
 	svgHeight: string;
 	dark?: boolean;
 	orientation?: "stacked" | "inline";
@@ -136,7 +136,10 @@ export const Crest = ({
 					  ((padding / 2) * (agencyArray.length - 1) + 3)
 					: 0) +
 			  (division ? agencyFontSize * divisionArray.length + padding : 0)
-			: crestHeight;
+			: Math.max(
+					crestHeight,
+					crestHeight - 75 + (titleFontSize * agencyArray.length + 1)
+			  );
 
 	const transform =
 		orientation === "stacked"

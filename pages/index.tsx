@@ -335,7 +335,7 @@ const Home: NextPage = () => {
 											className="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300"
 											id="division"
 											value={inputValues["division"]}
-											disabled={!inputValues.agency}
+											disabled={!inputValues.agency || !orientationStacked}
 											onChange={(e) =>
 												setInputValues({
 													...inputValues,
