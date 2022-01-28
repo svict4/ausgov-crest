@@ -8,6 +8,8 @@ import { Button } from "@ag.ds-next/button";
 import { Layout } from "../components/Layout";
 import { Crest } from "../components/Crest";
 
+import { event } from "../lib/gtag";
+
 const Home: NextPage = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const crestRef = React.useRef<any>();
@@ -59,6 +61,11 @@ const Home: NextPage = () => {
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
 		document.body.removeChild(downloadLink);
+		event({
+			name: "file_download",
+			category: "download",
+			label: `${inputValues.title}-${inputValues.agency}-${inputValues.division}`,
+		});
 
 		setTimeout(() => URL.revokeObjectURL(svgUrl), 5000);
 	};
