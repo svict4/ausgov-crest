@@ -64,7 +64,7 @@ const Home: NextPage = () => {
 		event({
 			name: "file_download",
 			category: "download",
-			label: `${inputValues.title}-${inputValues.agency}-${inputValues.division}`,
+			label: `${inputValues.title}++${inputValues.agency}++${inputValues.division}++${orientationStacked}++${dark ? "dark" : "light"}++${SVGHeight}`,
 		});
 
 		setTimeout(() => URL.revokeObjectURL(svgUrl), 5000);
