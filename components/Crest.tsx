@@ -101,10 +101,21 @@ export const Crest = ({
 		} else {
 			setViewBoxWidth(
 				crestWidth +
-					textLength(
-						titleArray[0],
-						titleSpacing,
-						`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+					Math.max(
+						...titleArray.map((titleTitle) =>
+							textLength(
+								titleTitle,
+								titleSpacing,
+								`${titleFontWeight} ${titleFontSize}px ${fontFamily}`
+							)
+						),
+						...agencyArray.map((agencyTitle) =>
+							textLength(
+								agencyTitle,
+								agencySpacing,
+								`${agencyFontWeight} ${agencyFontSize}px ${fontFamily}`
+							)
+						)
 					) +
 					padding
 			);
@@ -127,7 +138,6 @@ export const Crest = ({
 			  (division ? agencyFontSize * divisionArray.length + padding : 0)
 			: crestHeight;
 
-	const calculateViewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
 	const transform =
 		orientation === "stacked"
 			? `translate(${viewBoxWidth / 2 - crestWidth / 2} 0)`
@@ -135,7 +145,7 @@ export const Crest = ({
 
 	return mounted ? (
 		<svg
-			viewBox={calculateViewBox}
+			viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
 			version="1.1"
 			height={svgHeight}
 			width={svgWidth}
