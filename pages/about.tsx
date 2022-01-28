@@ -29,20 +29,34 @@ const About: NextPage = () => {
 					>
 						<Heading as="h1">About</Heading>
 
+						<Box css={{ paddingTop: "1rem"}}>
+							<GitHubButton
+								href="https://github.com/svict4/ausgov-crest"
+								data-icon="octicon-star"
+								data-size="large"
+								data-show-count="true"
+								aria-label="Star svict4/ausgov-crest on GitHub"
+							>
+								Star
+							</GitHubButton>
+						</Box>
+
 						<Text as={"p"}>
 							<b>
 								<u>Not</u>
 							</b>{" "}
-							an official government website (yet).
-
-							You should look for <b>.gov.au</b> in the URL
-							for official websites.
+							an official government website (yet). You should look for{" "}
+							<b>.gov.au</b> in the URL for official websites.
 						</Text>
 
 						<Text as={"p"}>
 							This is a simple tool generates Australian Government Branding.
 							Similar to the one on{" "}
-							<a href="https://api.gov.au/service/5bd921345149e90004f326a7">
+							<a
+								href="https://api.gov.au/service/5bd921345149e90004f326a7"
+								target="_blank"
+								rel="noreferrer"
+							>
 								api.gov.au
 							</a>{" "}
 							except this one generates vectors. Eventually it will also export
@@ -57,23 +71,30 @@ const About: NextPage = () => {
 						<Text as={"p"}>
 							It is built with NextJS using the new (alpha) design system react
 							components by the{" "}
-							<a href="https://github.com/steelthreads/agds-next">
+							<a
+								href="https://github.com/steelthreads/agds-next"
+								target="_blank"
+								rel="noreferrer"
+							>
 								Department of Agriculture
 							</a>
 							.
 						</Text>
 
-						<Text as={"p"}>Source code available on GitHub. Feature requests and PRs welcome</Text>
+						<Text as={"p"}>
+							Source code available on GitHub.{" "}
+							<a
+								href="https://github.com/svict4/ausgov-crest"
+								target="_blank"
+								rel="noreferrer"
+							>
+								https://github.com/svict4/ausgov-crest
+							</a>
+						</Text>
 
-						<GitHubButton
-							href="https://github.com/svict4/ausgov-crest"
-							data-icon="octicon-star"
-							data-size="large"
-							data-show-count="true"
-							aria-label="Star svict4/ausgov-crest on GitHub"
-						>
-							Star
-						</GitHubButton>
+						<Text as={"p"}>
+							Feature requests, suggestions and pull requests welcome 🙂
+						</Text>
 					</Body>
 				</Box>
 			</Content>

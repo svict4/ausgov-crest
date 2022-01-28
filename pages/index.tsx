@@ -8,6 +8,8 @@ import { Button } from "@ag.ds-next/button";
 import { Layout } from "../components/Layout";
 import { Crest } from "../components/Crest";
 
+import { event } from "../lib/gtag";
+
 const Home: NextPage = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const crestRef = React.useRef<any>();
@@ -17,6 +19,7 @@ const Home: NextPage = () => {
 		division: "",
 	});
 	const [dark, setDark] = React.useState(true);
+	const [orientationStacked, setOrientationStacked] = React.useState(true);
 	const [SVGHeight, setSVGHeight] = React.useState(350);
 
 	const saveSvg = () => {
@@ -58,6 +61,11 @@ const Home: NextPage = () => {
 		document.body.appendChild(downloadLink);
 		downloadLink.click();
 		document.body.removeChild(downloadLink);
+		event({
+			name: "file_download",
+			category: "download",
+			label: `${inputValues.title}-${inputValues.agency}-${inputValues.division}`,
+		});
 
 		setTimeout(() => URL.revokeObjectURL(svgUrl), 5000);
 	};
@@ -327,7 +335,7 @@ const Home: NextPage = () => {
 											className="shadow-sm appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-600 text-sm leading-tight focus:outline-none focus:border-indigo-300"
 											id="division"
 											value={inputValues["division"]}
-											disabled={!inputValues.agency}
+											disabled={!inputValues.agency || !orientationStacked}
 											onChange={(e) =>
 												setInputValues({
 													...inputValues,
@@ -360,6 +368,15 @@ const Home: NextPage = () => {
 											Toggle {dark ? "light" : "dark"}
 										</Button>
 									</div>
+
+									<div className="mb-6">
+										<Button
+											onClick={() => setOrientationStacked(!orientationStacked)}
+											className="block px-4 py-2 border-b border-gray-200 w-full rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										>
+											Toggle {orientationStacked ? "inline" : "stacked"}
+										</Button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -372,6 +389,7 @@ const Home: NextPage = () => {
 								agency={inputValues.agency}
 								division={inputValues.division}
 								crestRef={crestRef}
+								orientation={orientationStacked ? "stacked" : "inline"}
 								dark={dark}
 							/>
 							<div className="mt-10 flex flex-wrap justify-center">
