@@ -249,7 +249,7 @@ export const Crest = ({
 										orientation === "stacked"
 											? crestHeight +
 											  (agencyFontSize + padding) * (agencyArray.length + 1) +
-											  agencyFontSize
+											  agencyFontSize * (index + 1)
 											: agencyFontSize +
 											  padding / 2 +
 											  (crestHeight + agencyFontSize) / 2 +
