@@ -156,7 +156,7 @@ export const Crest = ({
 			width={svgWidth}
 			xmlns="http://www.w3.org/2000/svg"
 			ref={crestRef}
-			css={{ border: "1px solid black" }}
+			// css={{ border: "1px solid black" }}
 		>
 			<g stroke={dark ? "000" : "white"} fill={dark ? "000" : "white"}>
 				<g id="crest" transform={transform}>
