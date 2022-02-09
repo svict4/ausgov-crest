@@ -140,7 +140,12 @@ export const Crest = ({
 			  (division ? agencyFontSize * divisionArray.length + padding : 0)
 			: Math.max(
 					crestHeight,
-					(crestHeight / 2) + padding + ((agencyFontSize + padding) * agencyArray.length + 1)
+					crestHeight / 2 +
+						padding +
+						(agencyFontSize + padding) * agencyArray.length +
+						(divisionArray.length > 0
+							? padding + agencyFontSize * divisionArray.length
+							: 0)
 			  );
 
 	const transform =
@@ -156,7 +161,6 @@ export const Crest = ({
 			width={svgWidth}
 			xmlns="http://www.w3.org/2000/svg"
 			ref={crestRef}
-			// css={{ border: "1px solid black" }}
 		>
 			<g stroke={dark ? "000" : "white"} fill={dark ? "000" : "white"}>
 				<g id="crest" transform={transform}>
