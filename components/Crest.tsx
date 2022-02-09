@@ -222,7 +222,7 @@ export const Crest = ({
 												: agencyFontSize +
 												  padding / 2 +
 												  (crestHeight + agencyFontSize) / 2 +
-												  ((agencyFontSize + (hideLines ? 0 : padding)) *
+												  ((agencyFontSize + (hideLines ? padding / 2 : padding)) *
 														index +
 														1)
 										}
