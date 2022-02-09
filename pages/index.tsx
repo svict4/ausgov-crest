@@ -20,6 +20,7 @@ const Home: NextPage = () => {
 	});
 	const [dark, setDark] = React.useState(true);
 	const [orientationStacked, setOrientationStacked] = React.useState(true);
+	const [hideLines, setHideLines] = React.useState(false);
 	const [SVGHeight, setSVGHeight] = React.useState(350);
 
 	const saveSvg = () => {
@@ -377,6 +378,15 @@ const Home: NextPage = () => {
 											Toggle {orientationStacked ? "inline" : "stacked"}
 										</Button>
 									</div>
+
+									<div className="mb-6">
+										<Button
+											onClick={() => setHideLines(!hideLines)}
+											className="block px-4 py-2 border-b border-gray-200 w-full rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 cursor-pointer"
+										>
+											Toggle lines {hideLines ? "on" : "off"}
+										</Button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -391,6 +401,7 @@ const Home: NextPage = () => {
 								crestRef={crestRef}
 								orientation={orientationStacked ? "stacked" : "inline"}
 								dark={dark}
+								hideLines={hideLines}
 							/>
 							<div className="mt-10 flex flex-wrap justify-center">
 								<div className="my-5">

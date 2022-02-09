@@ -5,13 +5,13 @@ const crestWidth = 338.08;
 const crestHeight = 248.76;
 
 const fontFamily = "Times New Roman"; // "Liberation Serif" for open source
-const titleFontSize = 71;
+const titleFontSize = 70;
 const titleSpacing = -2.5;
 const titleFontWeight = "bold";
-const agencyFontSize = 63;
+const agencyFontSize = 60;
 const agencySpacing = -1.5;
 const agencyFontWeight = "bold";
-const divisionFontSize = 63;
+const divisionFontSize = 58;
 const divisionSpacing = -1.5;
 const divisionFontWeight = "normal";
 const padding = 25;
@@ -51,6 +51,7 @@ export const Crest = ({
 	svgHeight = "350",
 	dark = true,
 	orientation = "stacked",
+	hideLines = false,
 	crestRef,
 }: {
 	title: string;
@@ -60,6 +61,7 @@ export const Crest = ({
 	svgHeight: string;
 	dark?: boolean;
 	orientation?: "stacked" | "inline";
+	hideLines?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	crestRef: any;
 }) => {
@@ -170,10 +172,10 @@ export const Crest = ({
 										orientation === "stacked"
 											? crestHeight + titleFontSize * (index + 1)
 											: agency
-											? (crestHeight + titleFontSize) / 2 - padding
+											? (crestHeight + titleFontSize / 2) / 2 - padding + 6
 											: (crestHeight + titleFontSize) / 2 +
 											  (titleFontSize * index + 1)
-									} // crest height + padding + height of text
+									}
 									style={{ letterSpacing: titleSpacing }}
 									textAnchor={orientation === "stacked" ? "middle" : "right"}
 									fontWeight={titleFontWeight}
@@ -193,22 +195,21 @@ export const Crest = ({
 										y1={
 											orientation === "stacked"
 												? crestHeight + (agencyFontSize + padding) * (index + 1)
-												: (crestHeight + titleFontSize) / 2 +
-												  (titleFontSize * index + padding) -
-												  titleFontSize / 2 +
-												  5
+												: (crestHeight + agencyFontSize) / 2 +
+												  ((agencyFontSize + padding) * index +
+														(index > 0 ? padding / 2 : 0))
 										}
 										x2={viewBoxWidth}
 										y2={
 											orientation === "stacked"
 												? crestHeight + (agencyFontSize + padding) * (index + 1)
-												: (crestHeight + titleFontSize) / 2 +
-												  (titleFontSize * index + padding) -
-												  titleFontSize / 2 +
-												  5
+												: (crestHeight + agencyFontSize) / 2 +
+												  ((agencyFontSize + padding) * index +
+														(index > 0 ? padding / 2 : 0))
 										}
 										stroke={dark ? "black" : "white"}
 										strokeWidth="2"
+										display={hideLines && index > 0 ? "none" : "block"}
 									/>
 									<text
 										key={index}
@@ -219,10 +220,12 @@ export const Crest = ({
 												  (agencyFontSize + padding) * (index + 1) +
 												  agencyFontSize
 												: agencyFontSize +
-												  (crestHeight + titleFontSize) / 2 +
-												  titleFontSize * index -
-												  10
-										} // crest height + padding + height of text
+												  padding / 2 +
+												  (crestHeight + agencyFontSize) / 2 +
+												  ((agencyFontSize + (hideLines ? 0 : padding)) *
+														index +
+														1)
+										}
 										style={{ letterSpacing: agencySpacing }}
 										textAnchor={orientation === "stacked" ? "middle" : "right"}
 										fontWeight={agencyFontWeight}
