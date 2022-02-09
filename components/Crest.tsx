@@ -140,7 +140,7 @@ export const Crest = ({
 			  (division ? agencyFontSize * divisionArray.length + padding : 0)
 			: Math.max(
 					crestHeight,
-					crestHeight - 75 + (titleFontSize * agencyArray.length + 1)
+					(crestHeight / 2) + padding + ((agencyFontSize + padding) * agencyArray.length + 1)
 			  );
 
 	const transform =
