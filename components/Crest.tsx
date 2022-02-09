@@ -156,6 +156,7 @@ export const Crest = ({
 			width={svgWidth}
 			xmlns="http://www.w3.org/2000/svg"
 			ref={crestRef}
+			css={{ border: "1px solid black" }}
 		>
 			<g stroke={dark ? "000" : "white"} fill={dark ? "000" : "white"}>
 				<g id="crest" transform={transform}>
@@ -222,7 +223,8 @@ export const Crest = ({
 												: agencyFontSize +
 												  padding / 2 +
 												  (crestHeight + agencyFontSize) / 2 +
-												  ((agencyFontSize + (hideLines ? padding / 2 : padding)) *
+												  ((agencyFontSize +
+														(hideLines ? padding / 2 : padding)) *
 														index +
 														1)
 										}
@@ -242,18 +244,23 @@ export const Crest = ({
 							return (
 								<text
 									key={index}
-									x="50%"
+									x={orientation === "stacked" ? "50%" : crestWidth + padding}
 									y={
-										crestHeight +
-										(padding / 2 + titleFontSize) * titleArray.length +
-										(padding / 2) * (titleArray.length - 1) +
-										(padding / 2 + agencyFontSize) * agencyArray.length +
-										(padding / 2) * (agencyArray.length - 1) +
-										padding / 2 +
-										agencyFontSize * (index + 1)
+										orientation === "stacked"
+											? crestHeight +
+											  (agencyFontSize + padding) * (agencyArray.length + 1) +
+											  agencyFontSize
+											: agencyFontSize +
+											  padding / 2 +
+											  (crestHeight + agencyFontSize) / 2 +
+											  ((agencyFontSize +
+													(hideLines ? padding / 2 : padding)) *
+													agencyArray.length +
+													1) +
+											  agencyFontSize * index
 									}
 									style={{ letterSpacing: titleSpacing }}
-									textAnchor="middle"
+									textAnchor={orientation === "stacked" ? "middle" : "right"}
 									fontWeight={divisionFontWeight}
 									fontFamily={fontFamily}
 									fontSize={agencyFontSize + "px"}
